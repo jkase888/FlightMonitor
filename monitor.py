@@ -1,6 +1,7 @@
 from amadeus import Client, ResponseError
 import json
 import datetime
+import os
 
 #path = "/Users/asethia/Documents/App/FlightMonitor/"
 
