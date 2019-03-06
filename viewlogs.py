@@ -9,3 +9,6 @@ def view_logs():
     #log_contents = f.read()
     #f.close()
     #return log_contents
+
+if __name__ == '__main__':
+    app.run()
