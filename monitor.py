@@ -1,6 +1,7 @@
 from amadeus import Client, ResponseError
 import json
 import datetime
+import pytz
 import os
 
 #path = "/Users/asethia/Documents/App/FlightMonitor/"
@@ -45,7 +46,7 @@ try:
                 if (serviceItems['segments'][0]['flightSegment']['number'] == targetArrivalFlightNumber) and (firstSegementIsFound == True):
                     secondSegementIsFound = True
             if (firstSegementIsFound) and (secondSegementIsFound):
-                datetimestampStr = datetime.datetime.now().__str__()
+                datetimestampStr = datetime.datetime.now(pytz.timezone('US/Eastern')).__str__()
                 offerItems['datetimestamp'] = datetimestampStr
                 strOfferItems = json.dumps(offerItems)
                 # output raw log of json
@@ -60,7 +61,7 @@ try:
                 f = open("short_log.txt", "a")
                 f.write(('"' + datetimestampStr + '",' + targetDepartureFlightNumber + ',' + targetArrivalFlightNumber + ',' + offerItems['price']['total'] + '\n'))
                 f.close()
-    datetimestampStr = datetime.datetime.now().__str__()
+    datetimestampStr = datetime.datetime.now(pytz.timezone('US/Eastern')).__str__()
     print(datetimestampStr)
 
 except ResponseError as error:
