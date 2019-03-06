@@ -10,4 +10,4 @@ def index():
     return log_contents
 
 if __name__ == '__main__':
-    app.run()
+    app.run() 
