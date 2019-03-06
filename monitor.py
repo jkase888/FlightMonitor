@@ -4,11 +4,6 @@ import datetime
 import pytz
 import os
 
-client_id
-Ie7BPnWZOFAhjZuzPF3jL1pMMqm0Sj6N
-
-client_secret
-urnFyvAS3VxrJSz3
 #path = "/Users/asethia/Documents/App/FlightMonitor/"
 
 
