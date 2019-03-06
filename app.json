@@ -1,0 +1,6 @@
+{
+ "name": "airline-price-monitor",
+ "description": "pb",
+ "repository": "https://github.com/jkase888/FlightMonitor",
+ "keywords": ["flask", "heroku"]
+}
