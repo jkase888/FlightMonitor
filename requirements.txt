@@ -1,4 +1,4 @@
 amadeus==3.0.0
 pytz==2013.7
 Flask==1.0.2
-gunicorn==19.3.0
+gunicorn==19.8.0
