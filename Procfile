@@ -1,1 +1,1 @@
-worker: python monitor.py
+web: gunicorn index:app
