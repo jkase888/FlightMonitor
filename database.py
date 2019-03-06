@@ -4,7 +4,7 @@ import traceback
 
 class DatabaseGateway():
 
-    def __init__(self, env):
+    def __init__(self):
             self.DATABASE_URL = os.environ['DATABASE_URL']
 
     def connect(self):
