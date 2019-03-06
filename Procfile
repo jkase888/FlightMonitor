@@ -1,1 +1,1 @@
-web: gunicorn viewlogs:app
+web: gunicorn hello:app
