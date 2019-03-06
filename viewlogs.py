@@ -7,7 +7,7 @@ def view_logs():
     f = open("short_log.txt", "r")
     log_contents = f.read()
     f.close()
-    return log_contents
+    return "hello world"
 
 if __name__ == '__main__':
     app.run()
