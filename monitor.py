@@ -8,11 +8,11 @@ import os
 #path = "/Users/asethia/Documents/App/FlightMonitor/"
 
 amadeus = Client(
-    #client_id=os.environ['client_id'],
-    #client_secret=os.environ['client_secret'],
-    client_id=os.environ['client_id_test'],
-    client_secret=os.environ['client_secret_test'],
-    #hostname='production'
+    client_id=os.environ['client_id'],
+    client_secret=os.environ['client_secret'],
+    #client_id=os.environ['client_id_test'],
+    #client_secret=os.environ['client_secret_test'],
+    hostname='production'
 )
 
 origin="yyz"
