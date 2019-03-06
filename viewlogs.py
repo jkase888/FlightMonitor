@@ -10,7 +10,7 @@ def view_logs():
     return log_contents
 
 @app.route('/long')
-def view_logs():
+def view_raw_logs():
     f = open("raw_log.txt", "r")
     log_contents = f.read()
     f.close()
