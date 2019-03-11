@@ -1,3 +1,5 @@
+import datetime
+
 class TripSearch():
     def __init__(self, origin, destination, departureDate, returnDate, adults, children, travelClass, nonStop, currency, max, includeAirlines, targetDepartureFlightNumber, targetArrivalFlightNumber):
         self.origin=origin
