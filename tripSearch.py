@@ -13,3 +13,20 @@ class TripSearch():
         self.includeAirlines=includeAirlines
         self.targetDepartureFlightNumber=targetDepartureFlightNumber
         self.targetArrivalFlightNumber=targetArrivalFlightNumber
+
+    def search(self, jsonDataObject):
+        for data in jsonDataObject:
+            for offerItems in data['offerItems']:
+                firstSegementIsFound = False
+                secondSegementIsFound = False
+                for serviceItems in offerItems['services']:
+                    if (serviceItems['segments'][0]['flightSegment']['number'] == self.targetDepartureFlightNumber) and (firstSegementIsFound == False):
+                        firstSegementIsFound = True
+                    if (serviceItems['segments'][0]['flightSegment']['number'] == self.targetArrivalFlightNumber) and (firstSegementIsFound == True):
+                        secondSegementIsFound = True
+                if (firstSegementIsFound) and (secondSegementIsFound):
+                    datetimestampStr = datetime.datetime.now(pytz.timezone('US/Eastern')).__str__()
+                    self.totalPrice = offerItems['price']['total']
+                    self.loggedAtDatetime = logged_at_datetime=datetimestampStr
+                    return True
+        return False

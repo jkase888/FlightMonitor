@@ -30,37 +30,9 @@ try:
                 max=tripA.max, includeAirlines=tripA.includeAirlines)
     jsonObject = json.loads(response.body)
 
+    if (tripA.search(jsonDataObject=jsonObject['data'])):
+        db.insertAirlinePrice(from_code=tripA.targetDepartureFlightNumber, return_code=tripA.targetArrivalFlightNumber, date_depature=tripA.departureDate, date_return=tripA.returnDate, total_price=tripA.totalPrice, logged_at_datetime=tripA.loggedAtDatetime)
 
-    for data in jsonObject['data']:
-        for offerItems in data['offerItems']:
-            firstSegementIsFound = False
-            secondSegementIsFound = False
-            for serviceItems in offerItems['services']:
-                if (serviceItems['segments'][0]['flightSegment']['number'] == tripA.targetDepartureFlightNumber) and (firstSegementIsFound == False):
-                    firstSegementIsFound = True
-                if (serviceItems['segments'][0]['flightSegment']['number'] == tripA.targetArrivalFlightNumber) and (firstSegementIsFound == True):
-                    secondSegementIsFound = True
-            if (firstSegementIsFound) and (secondSegementIsFound):
-                datetimestampStr = datetime.datetime.now(pytz.timezone('US/Eastern')).__str__()
-                offerItems['datetimestamp'] = datetimestampStr
-                strOfferItems = json.dumps(offerItems)
-
-                db.insertAirlinePrice(from_code=tripA.targetDepartureFlightNumber, return_code=tripA.targetArrivalFlightNumber, date_depature=tripA.departureDate, date_return=tripA.returnDate, total_price=offerItems['price']['total'], logged_at_datetime=datetimestampStr)
-
-                '''
-                # output raw log of json
-                #f = open(path + "raw_log.txt", "a")
-                f = open("raw_log.txt", "a")
-                f.write(strOfferItems)
-                f.write("\n\n")
-                f.close()
-
-                # output short log
-                #f = open(path + "short_log.txt", "a")
-                f = open("short_log.txt", "a")
-                f.write(('"' + datetimestampStr + '",' + targetDepartureFlightNumber + ',' + targetArrivalFlightNumber + ',' + offerItems['price']['total'] + '\n'))
-                f.close()
-                '''
     datetimestampStr = datetime.datetime.now(pytz.timezone('US/Eastern')).__str__()
     print(datetimestampStr)
     db.close()
