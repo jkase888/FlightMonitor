@@ -1,5 +1,6 @@
 from amadeus import Client, ResponseError
 from database import DatabaseGateway
+from tripSearch import TripSearch
 import json
 import datetime
 import pytz
@@ -15,20 +16,21 @@ amadeus = Client(
     hostname='production'
 )
 
-origin="yyz"
-destination="mco"
-departureDate="2019-04-20"
-returnDate="2019-04-29"
-adults="1"
-children="0"
-travelClass="ECONOMY"
-nonStop="true"
-currency="CAD"
-max="50"
-includeAirlines="AC"
+tripA = tripSearch()
+tripA.origin="yyz"
+tripA.destination="mco"
+tripA.departureDate="2019-04-20"
+tripA.returnDate="2019-04-29"
+tripA.adults="1"
+tripA.children="0"
+tripA.travelClass="ECONOMY"
+tripA.nonStop="true"
+tripA.currency="CAD"
+tripA.max="50"
+tripA.includeAirlines="AC"
 
-targetDepartureFlightNumber="1672"
-targetArrivalFlightNumber="1677"
+tripA.targetDepartureFlightNumber="1672"
+tripA.targetArrivalFlightNumber="1677"
 
 try:
 
@@ -36,10 +38,10 @@ try:
     db = DatabaseGateway()
     db.connect()
 
-    response = amadeus.shopping.flight_offers.get(origin=origin, destination=destination,
-                departureDate=departureDate, returnDate=returnDate, adults=adults,
-                children=children, travelClass=travelClass, nonStop=nonStop, currency=currency,
-                max=max, includeAirlines=includeAirlines)
+    response = amadeus.shopping.flight_offers.get(origin=tripA.origin, destination=tripA.destination,
+                departureDate=tripA.departureDate, returnDate=tripA.returnDate, adults=tripA.adults,
+                children=tripA.children, travelClass=tripA.travelClass, nonStop=tripA.nonStop, currency=tripA.currency,
+                max=tripA.max, includeAirlines=tripA.includeAirlines)
     jsonObject = json.loads(response.body)
 
 
@@ -48,16 +50,16 @@ try:
             firstSegementIsFound = False
             secondSegementIsFound = False
             for serviceItems in offerItems['services']:
-                if (serviceItems['segments'][0]['flightSegment']['number'] == targetDepartureFlightNumber) and (firstSegementIsFound == False):
+                if (serviceItems['segments'][0]['flightSegment']['number'] == tripA.targetDepartureFlightNumber) and (firstSegementIsFound == False):
                     firstSegementIsFound = True
-                if (serviceItems['segments'][0]['flightSegment']['number'] == targetArrivalFlightNumber) and (firstSegementIsFound == True):
+                if (serviceItems['segments'][0]['flightSegment']['number'] == tripA.targetArrivalFlightNumber) and (firstSegementIsFound == True):
                     secondSegementIsFound = True
             if (firstSegementIsFound) and (secondSegementIsFound):
                 datetimestampStr = datetime.datetime.now(pytz.timezone('US/Eastern')).__str__()
                 offerItems['datetimestamp'] = datetimestampStr
                 strOfferItems = json.dumps(offerItems)
 
-                db.insertAirlinePrice(from_code=targetDepartureFlightNumber, return_code=targetArrivalFlightNumber, date_depature=departureDate, date_return=returnDate, total_price=offerItems['price']['total'], logged_at_datetime=datetimestampStr)
+                db.insertAirlinePrice(from_code=tripA.targetDepartureFlightNumber, return_code=tripA.targetArrivalFlightNumber, date_depature=tripA.departureDate, date_return=tripA.returnDate, total_price=tripA.offerItems['price']['total'], logged_at_datetime=datetimestampStr)
 
                 '''
                 # output raw log of json
