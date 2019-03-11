@@ -1,4 +1,6 @@
 import datetime
+import pytz
+import json
 
 class TripSearch():
     def __init__(self, origin, destination, departureDate, returnDate, adults, children, travelClass, nonStop, currency, max, includeAirlines, targetDepartureFlightNumber, targetArrivalFlightNumber):
