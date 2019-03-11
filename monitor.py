@@ -25,7 +25,7 @@ tripC = TripSearch(origin="yyz",destination="mco",departureDate="2019-06-29",ret
 
 tripD = TripSearch(origin="yyz",destination="yvr",departureDate="2019-08-17",returnDate="2019-08-25",adults="1",children="0",travelClass="ECONOMY",nonStop="true",currency="CAD",max="50",includeAirlines="AC",targetDepartureFlightNumber="101",targetArrivalFlightNumber="182")
 
-trigger_hours = [1, 5, 9, 14, 17, 21]
+trigger_hours = [1, 3, 5, 9, 12, 14, 17, 20, 21, 22, 23]
 current_hour = datetime.datetime.now(pytz.timezone('US/Eastern')).hour
 if (current_hour not in trigger_hours):
     sys.exit()
