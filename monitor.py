@@ -27,7 +27,7 @@ tripD = TripSearch(origin="yyz",destination="yvr",departureDate="2019-08-17",ret
 trigger_hours = [1, 5, 9, 14, 17, 21]
 current_hour = datetime.datetime.now(pytz.timezone('US/Eastern')).hour
 if (current_hour not in trigger_hours):
-    return
+    sys.exit()
 
 try:
 
