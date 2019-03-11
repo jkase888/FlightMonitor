@@ -16,21 +16,7 @@ amadeus = Client(
     hostname='production'
 )
 
-tripA = TripSearch()
-tripA.origin="yyz"
-tripA.destination="mco"
-tripA.departureDate="2019-04-20"
-tripA.returnDate="2019-04-29"
-tripA.adults="1"
-tripA.children="0"
-tripA.travelClass="ECONOMY"
-tripA.nonStop="true"
-tripA.currency="CAD"
-tripA.max="50"
-tripA.includeAirlines="AC"
-
-tripA.targetDepartureFlightNumber="1672"
-tripA.targetArrivalFlightNumber="1677"
+tripA = TripSearch(origin="yyz",destination="mco",departureDate="2019-04-20",returnDate="2019-04-29",adults="1",children="0",travelClass="ECONOMY",nonStop="true",currency="CAD",max="50",includeAirlines="AC",targetDepartureFlightNumber="1672",targetArrivalFlightNumber="1677")
 
 try:
 
