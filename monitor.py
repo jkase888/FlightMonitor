@@ -59,7 +59,7 @@ try:
                 offerItems['datetimestamp'] = datetimestampStr
                 strOfferItems = json.dumps(offerItems)
 
-                db.insertAirlinePrice(from_code=tripA.targetDepartureFlightNumber, return_code=tripA.targetArrivalFlightNumber, date_depature=tripA.departureDate, date_return=tripA.returnDate, total_price=tripA.offerItems['price']['total'], logged_at_datetime=datetimestampStr)
+                db.insertAirlinePrice(from_code=tripA.targetDepartureFlightNumber, return_code=tripA.targetArrivalFlightNumber, date_depature=tripA.departureDate, date_return=tripA.returnDate, total_price=offerItems['price']['total'], logged_at_datetime=datetimestampStr)
 
                 '''
                 # output raw log of json
