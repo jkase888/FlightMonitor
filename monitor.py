@@ -16,7 +16,7 @@ amadeus = Client(
     hostname='production'
 )
 
-tripA = tripSearch()
+tripA = TripSearch()
 tripA.origin="yyz"
 tripA.destination="mco"
 tripA.departureDate="2019-04-20"
