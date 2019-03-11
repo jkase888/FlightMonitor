@@ -16,7 +16,13 @@ amadeus = Client(
     hostname='production'
 )
 
-tripA = TripSearch(origin="yyz",destination="mco",departureDate="2019-04-20",returnDate="2019-04-29",adults="1",children="0",travelClass="ECONOMY",nonStop="true",currency="CAD",max="50",includeAirlines="AC",targetDepartureFlightNumber="1672",targetArrivalFlightNumber="1677")
+trip = TripSearch(origin="yyz",destination="mco",departureDate="2019-04-20",returnDate="2019-04-29",adults="1",children="0",travelClass="ECONOMY",nonStop="true",currency="CAD",max="50",includeAirlines="AC",targetDepartureFlightNumber="1672",targetArrivalFlightNumber="1677")
+
+tripB = TripSearch(origin="yyz",destination="mco",departureDate="2019-05-17",returnDate="2019-05-20",adults="1",children="0",travelClass="ECONOMY",nonStop="true",currency="CAD",max="50",includeAirlines="AC",targetDepartureFlightNumber="1670",targetArrivalFlightNumber="1677")
+
+tripC = TripSearch(origin="yyz",destination="mco",departureDate="2019-06-29",returnDate="2019-07-07",adults="1",children="0",travelClass="ECONOMY",nonStop="true",currency="CAD",max="50",includeAirlines="WS",targetDepartureFlightNumber="1226",targetArrivalFlightNumber="1241")
+
+tripD = TripSearch(origin="yyz",destination="yvr",departureDate="2019-08-17",returnDate="2019-08-25",adults="1",children="0",travelClass="ECONOMY",nonStop="true",currency="CAD",max="50",includeAirlines="AC",targetDepartureFlightNumber="101",targetArrivalFlightNumber="182")
 
 try:
 
@@ -24,17 +30,67 @@ try:
     db = DatabaseGateway()
     db.connect()
 
-    response = amadeus.shopping.flight_offers.get(origin=tripA.origin, destination=tripA.destination,
-                departureDate=tripA.departureDate, returnDate=tripA.returnDate, adults=tripA.adults,
-                children=tripA.children, travelClass=tripA.travelClass, nonStop=tripA.nonStop, currency=tripA.currency,
-                max=tripA.max, includeAirlines=tripA.includeAirlines)
+    trip = tripA
+    # << trip start
+    response = amadeus.shopping.flight_offers.get(origin=trip.origin, destination=trip.destination,
+                departureDate=trip.departureDate, returnDate=trip.returnDate, adults=trip.adults,
+                children=trip.children, travelClass=trip.travelClass, nonStop=trip.nonStop, currency=trip.currency,
+                max=trip.max, includeAirlines=trip.includeAirlines)
     jsonObject = json.loads(response.body)
 
-    if (tripA.search(jsonDataObject=jsonObject['data'])):
-        db.insertAirlinePrice(from_code=tripA.targetDepartureFlightNumber, return_code=tripA.targetArrivalFlightNumber, date_depature=tripA.departureDate, date_return=tripA.returnDate, total_price=tripA.totalPrice, logged_at_datetime=tripA.loggedAtDatetime)
+    if (trip.search(jsonDataObject=jsonObject['data'])):
+        db.insertAirlinePrice(from_code=trip.targetDepartureFlightNumber, return_code=trip.targetArrivalFlightNumber, date_depature=trip.departureDate, date_return=trip.returnDate, total_price=trip.totalPrice, logged_at_datetime=trip.loggedAtDatetime)
 
     datetimestampStr = datetime.datetime.now(pytz.timezone('US/Eastern')).__str__()
-    print(datetimestampStr)
+    print("trip A: " + datetimestampStr)
+    # trip end >>
+
+    trip = tripB
+    # << trip start
+    response = amadeus.shopping.flight_offers.get(origin=trip.origin, destination=trip.destination,
+                departureDate=trip.departureDate, returnDate=trip.returnDate, adults=trip.adults,
+                children=trip.children, travelClass=trip.travelClass, nonStop=trip.nonStop, currency=trip.currency,
+                max=trip.max, includeAirlines=trip.includeAirlines)
+    jsonObject = json.loads(response.body)
+
+    if (trip.search(jsonDataObject=jsonObject['data'])):
+        db.insertAirlinePrice(from_code=trip.targetDepartureFlightNumber, return_code=trip.targetArrivalFlightNumber, date_depature=trip.departureDate, date_return=trip.returnDate, total_price=trip.totalPrice, logged_at_datetime=trip.loggedAtDatetime)
+
+    datetimestampStr = datetime.datetime.now(pytz.timezone('US/Eastern')).__str__()
+    print("trip B: " + datetimestampStr)
+    # trip end >>
+
+    trip = tripC
+    # << trip start
+    response = amadeus.shopping.flight_offers.get(origin=trip.origin, destination=trip.destination,
+                departureDate=trip.departureDate, returnDate=trip.returnDate, adults=trip.adults,
+                children=trip.children, travelClass=trip.travelClass, nonStop=trip.nonStop, currency=trip.currency,
+                max=trip.max, includeAirlines=trip.includeAirlines)
+    jsonObject = json.loads(response.body)
+
+    if (trip.search(jsonDataObject=jsonObject['data'])):
+        db.insertAirlinePrice(from_code=trip.targetDepartureFlightNumber, return_code=trip.targetArrivalFlightNumber, date_depature=trip.departureDate, date_return=trip.returnDate, total_price=trip.totalPrice, logged_at_datetime=trip.loggedAtDatetime)
+
+    datetimestampStr = datetime.datetime.now(pytz.timezone('US/Eastern')).__str__()
+    print("trip C: " + datetimestampStr)
+    # trip end >>
+
+    trip = tripD
+    # << trip start
+    response = amadeus.shopping.flight_offers.get(origin=trip.origin, destination=trip.destination,
+                departureDate=trip.departureDate, returnDate=trip.returnDate, adults=trip.adults,
+                children=trip.children, travelClass=trip.travelClass, nonStop=trip.nonStop, currency=trip.currency,
+                max=trip.max, includeAirlines=trip.includeAirlines)
+    jsonObject = json.loads(response.body)
+
+    if (trip.search(jsonDataObject=jsonObject['data'])):
+        db.insertAirlinePrice(from_code=trip.targetDepartureFlightNumber, return_code=trip.targetArrivalFlightNumber, date_depature=trip.departureDate, date_return=trip.returnDate, total_price=trip.totalPrice, logged_at_datetime=trip.loggedAtDatetime)
+
+    datetimestampStr = datetime.datetime.now(pytz.timezone('US/Eastern')).__str__()
+    print("trip D: " + datetimestampStr)
+    # trip end >>
+
+
     db.close()
 
 except ResponseError as error:
