@@ -81,20 +81,6 @@ try:
     print("trip C: " + datetimestampStr)
     # trip end >>
 
-    trip = tripD
-    # << trip start
-    response = amadeus.shopping.flight_offers.get(origin=trip.origin, destination=trip.destination,
-                departureDate=trip.departureDate, returnDate=trip.returnDate, adults=trip.adults,
-                children=trip.children, travelClass=trip.travelClass, nonStop=trip.nonStop, currency=trip.currency,
-                max=trip.max, includeAirlines=trip.includeAirlines)
-    jsonObject = json.loads(response.body)
-
-    if (trip.search(jsonDataObject=jsonObject['data'])):
-        db.insertAirlinePrice(from_code=trip.targetDepartureFlightNumber, return_code=trip.targetArrivalFlightNumber, date_depature=trip.departureDate, date_return=trip.returnDate, total_price=trip.totalPrice, logged_at_datetime=trip.loggedAtDatetime)
-
-    datetimestampStr = datetime.datetime.now(pytz.timezone('US/Eastern')).__str__()
-    print("trip D: " + datetimestampStr)
-    # trip end >>
 
 
     db.close()
